@@ -28,13 +28,13 @@ class Philosopher extends Thread {
         ++thinkCount;
         if (thinkCount % 10 == 0)
           System.out.println("Philosopher " + this + " has thought " + thinkCount + " times");
-        Thread.sleep(random.nextInt(1000)); // Think for a while
+        Thread.sleep(random.nextInt(10)); // Think for a while
         leftChopstick.lock();
         try {
-          if (rightChopstick.tryLock(1000, TimeUnit.MILLISECONDS)) {
+          if (rightChopstick.tryLock(10000, TimeUnit.MILLISECONDS)) {
             // Got the right chopstick
             try {
-              Thread.sleep(random.nextInt(1000)); // Eat for a while
+              Thread.sleep(random.nextInt(10)); // Eat for a while
             } finally { rightChopstick.unlock(); }
           } else {
             // Didn't get the right chopstick - give up and go back to thinking
