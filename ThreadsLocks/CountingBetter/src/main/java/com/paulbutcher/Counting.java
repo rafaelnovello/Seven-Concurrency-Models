@@ -22,11 +22,19 @@ public class Counting {
       }
     }
 
-    CountingThread t1 = new CountingThread();
-    CountingThread t2 = new CountingThread();
+    CountingThread[] threads = new CountingThread[10];
+
+    for (int i = 0; i < 10; i++){
+      threads[i] = new CountingThread();
+    }
     
-    t1.start(); t2.start();
-    t1.join(); t2.join();
+    for (int i = 0; i < 10; i++){
+      threads[i].start();
+    }
+
+    for (int i = 0; i < 10; i++){
+      threads[i].join();
+    }
     
     System.out.println(counter.get());
   }
