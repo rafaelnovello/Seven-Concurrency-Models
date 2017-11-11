@@ -52,16 +52,18 @@ class Philosopher extends Thread {
     ++thinkCount;
     if (thinkCount % 10 == 0)
       System.out.println("Philosopher " + this + " has thought " + thinkCount + " times");
-    Thread.sleep(1000);
+    Thread.sleep(10);
   }
 
   private void eat() throws InterruptedException {
     table.lock();
     try {
-      while (left.eating || right.eating)
+      while (left.eating || right.eating) {
+        System.out.println("Philosopher " + this + " is waiting");
         condition.await();
+      }
       eating = true;
     } finally { table.unlock(); }
-    Thread.sleep(1000);
+    Thread.sleep(10);
   }
 }
